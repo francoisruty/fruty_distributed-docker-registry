@@ -1,0 +1,23 @@
+  registry:
+    image: registry:2
+    ports:
+      - 127.0.0.1:5500:5000
+    environment:
+      REGISTRY_STORAGE_DELETE_ENABLED: 'true'
+      REGISTRY_STORAGE_S3_ACCESSKEY: ${AWS_ACCESS_KEY}
+      REGISTRY_STORAGE_S3_SECRETKEY: ${AWS_SECRET_KEY}
+    volumes:
+      ["./config.yml:/etc/docker/registry/config.yml"]
+    restart: always
+
+  another-registry:
+    image: registry:2
+    ports:
+      - 127.0.0.1:6500:5000
+    environment:
+      REGISTRY_STORAGE_DELETE_ENABLED: 'true'
+      REGISTRY_STORAGE_S3_ACCESSKEY: ${AWS_ACCESS_KEY}
+      REGISTRY_STORAGE_S3_SECRETKEY: ${AWS_SECRET_KEY}
+    volumes:
+      ["./config.yml:/etc/docker/registry/config.yml"]
+    restart: always
